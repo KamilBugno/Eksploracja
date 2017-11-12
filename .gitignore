@@ -1,6 +1,6 @@
-.idea
-.passwords
-.pyc
+*.idea
+*.passwords
+*.pyc
  __init__.py
 __pycache__/
 database_entities.pyc
