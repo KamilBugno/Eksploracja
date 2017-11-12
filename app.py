@@ -87,7 +87,7 @@ def insert_row_to_intersection_table(hashtag_id, tweet_id, cur):
 
 def main():
 
-    file = open('private_file_not_to_publish.txt', 'r')
+    file = open('private_file_not_to_publish.passwords', 'r')
     security_data = file.readlines()
 
     access_token = security_data[0].strip()
