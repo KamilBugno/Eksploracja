@@ -1,7 +1,8 @@
 *.idea
 *.passwords
 *.pyc
- __init__.py
+*.git
+__init__.py
 __pycache__/
 database_entities.pyc
 private_file_not_to_publish.passwords
