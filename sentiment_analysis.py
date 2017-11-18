@@ -8,16 +8,17 @@ class SentimentAnalysis:
 
     def get_tweet_sentiment(self, text):
         analysis = TextBlob(self.clean_text_tweet_from_mails_and_rubbish(text))
-        if analysis.sentiment.polarity > 0:
-            return 'positive'
-        elif analysis.sentiment.polarity == 0:
-            return 'neutral'
-        else:
-            return 'negative'
+        return analysis.sentiment.polarity
+        # if analysis.sentiment.polarity > 0:
+        #     return 'positive'
+        # elif analysis.sentiment.polarity == 0:
+        #     return 'neutral'
+        # else:
+        #     return 'negative'
 
 def main():
      sentiment = SentimentAnalysis()
-     print(sentiment.get_tweet_sentiment("these books are stupid"))
+     print(sentiment.get_tweet_sentiment("i love it"))
 
 if __name__ == '__main__':
     main()
