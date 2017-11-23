@@ -1,22 +1,6 @@
 import psycopg2
 from sentiment_analysis import SentimentAnalysis
 
-# CREATE TABLE public.one
-# (
-#     id bigint NOT NULL,
-#     a bigint,
-#     b bigint,
-#     CONSTRAINT one_pkey PRIMARY KEY (id)
-# )
-# WITH (
-#     OIDS = FALSE
-# )
-# TABLESPACE pg_default;
-#
-# ALTER TABLE public.one
-#     OWNER to postgres;
-
-# Klasa ta jest prototypem klasy do obliczania dla kazdego wiersza sentymentu i uaktualniania bazy
 class Updater():
     def connect_to_database(self):
         try:
