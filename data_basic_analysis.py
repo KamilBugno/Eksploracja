@@ -16,6 +16,12 @@ class Analyzer():
                     "group by users.language order by amount desc")
         return cur.fetchall()
 
+    def select_top_5_mentioned_users(self, conn):
+        cur = conn.cursor()
+        cur.execute("select count(user_id) as amount, user_id from mentioned_users"
+                    " group by user_id order by amount desc limit 5")
+        return cur.fetchall()
+
     def count_positive_sentiment_polarity(self, conn):
         cur = conn.cursor()
         cur.execute("Select count(*) as amount from tweets where sentiment_polarity > 0")
@@ -36,7 +42,7 @@ class Analyzer():
         cur.execute("Select count(*) as amount from tweets where sentiment_polarity is null")
         return cur.fetchall()
 
-    def draw_sentiment_analysis_with_null(self, conn):
+    def draw_sentiment_count_analysis(self, conn):
         positive = self.count_positive_sentiment_polarity(conn)
         negative = self.count_negative_sentiment_polarity(conn)
         neutral = self.count_neutral_sentiment_polarity(conn)
@@ -93,12 +99,29 @@ class Analyzer():
         plt.tight_layout()
         plt.show()
 
+    def draw_top_5_mentioned_users(self, data):
+        users = []
+        frequency = []
+
+        for i in range(len(data)):
+            users.append(data[i][1])
+            frequency.append(data[i][0])
+
+        #@KRLS @JulianAssange @Ladinszky @MainatJM @cristina_pardo
+        indices = np.arange(5)
+        plt.bar(indices, frequency, color='r')
+        plt.xticks(indices, users, rotation='vertical')
+        plt.tight_layout()
+        plt.show()
+
 def main():
     analyzer = Analyzer()
     conn = analyzer.connect_to_database()
-    data = analyzer.select_top_5_language(conn)
-    analyzer.draw_top_5_language(data)
-    analyzer.draw_sentiment_analysis_with_null(conn)
+    data_for_language_analysis = analyzer.select_top_5_language(conn)
+    data_for_mentioned_users_analysis = analyzer.select_top_5_mentioned_users(conn)
+    analyzer.draw_top_5_mentioned_users(data_for_mentioned_users_analysis)
+    analyzer.draw_top_5_language(data_for_language_analysis)
+    analyzer.draw_sentiment_count_analysis(conn)
     analyzer.draw_sentiment_analysis(conn)
 
 if __name__ == '__main__':
